@@ -6,7 +6,7 @@ const saltRounds = 10;
 
 const signup = async (req, res) => {
    try {
-      const { username, password, displayName } = req.body;
+      const { username, password } = req.body;
 
       const checkUser = await userModel.findOne({ username: username });
 
@@ -14,13 +14,13 @@ const signup = async (req, res) => {
          return responseHandler.badrequest(res, "User already exists");
       }
       const user = new userModel();
-      user.displayName = displayName;
+      user.displayName = username;
       user.username = username;
       const salt = bcrypt.genSaltSync(saltRounds);
       user.password = bcrypt.hashSync(password, salt);
 
       await user.save();
-      
+
       const token = jsonwebtoken.sign(
          { data: user._id },
          process.env.TOKEN_SECRET,

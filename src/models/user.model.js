@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import modelOptions from "./model.options";
+import mongoose, { Schema } from "mongoose";
+import modelOptions from "./model.options.js";
 
 const userSchema = new mongoose.Schema(
    {
@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema(
          required: true,
          select: false,
       },
+      favorites: [
+         {
+            type: Schema.Types.ObjectId,
+            ref: "Favorite",
+         },
+      ],
    },
    modelOptions
 );

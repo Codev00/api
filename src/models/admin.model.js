@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import modelOptions from "./model.options";
+import modelOptions from "./model.options.js";
 
 const adminSchema = new mongoose.Schema(
    {
@@ -13,12 +13,12 @@ const adminSchema = new mongoose.Schema(
          required: true,
       },
       manager: {
-         type: Schema.Types.Schema,
+         type: Schema.Types.ObjectId,
          ref: "Management",
       },
    },
    modelOptions
 );
 
-const adminModel = mongoose.Schema("Admin", adminSchema);
+const adminModel = mongoose.model("Admin", adminSchema);
 export default adminModel;

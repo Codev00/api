@@ -10,7 +10,6 @@ export default mongoose.model(
             ref: "User",
             required: true,
          },
-
          mediaType: {
             type: String,
             enum: ["tv", "movie"],
@@ -20,16 +19,12 @@ export default mongoose.model(
             type: String,
             required: true,
          },
-         mediaTitle: {
+         mediaName: {
             type: String,
             required: true,
          },
          mediaPoster: {
             type: String,
-            required: true,
-         },
-         mediaRate: {
-            type: Number,
             required: true,
          },
       },

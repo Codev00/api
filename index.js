@@ -4,7 +4,7 @@ import cors from "cors";
 import http from "http";
 import mongoose from "mongoose";
 import "dotenv/config";
-
+import router from "./src/routes/index.js";
 const app = express();
 
 app.use(cors());
@@ -16,7 +16,7 @@ app.use(
 );
 
 app.use(cookieParser());
-// app.use("/api/v1/",router)
+app.use("/api/v1", router);
 
 const port = process.env.PORT || 8080;
 const server = http.createServer(app);
