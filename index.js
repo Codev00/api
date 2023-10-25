@@ -5,7 +5,10 @@ import http from "http";
 import mongoose from "mongoose";
 import "dotenv/config";
 import router from "./src/routes/index.js";
+import morgan from "morgan";
 const app = express();
+
+app.use(morgan("combined"));
 
 app.use(cors());
 app.use(express.json());
@@ -18,7 +21,7 @@ app.use(
 app.use(cookieParser());
 app.use("/api/v1", router);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 
 mongoose

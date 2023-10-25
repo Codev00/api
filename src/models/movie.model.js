@@ -7,10 +7,6 @@ const movieSchema = new mongoose.Schema(
          type: String,
          required: true,
       },
-      eng_name: {
-         type: String,
-         required: true,
-      },
       type: {
          type: String,
       },
@@ -56,11 +52,10 @@ const movieSchema = new mongoose.Schema(
       },
       status: {
          type: String,
-         enum: ["Release", "Commingsoon"],
       },
       genres: [
          {
-            type: Schema.Types.Number,
+            type: Schema.Types.ObjectId,
             ref: "Genre",
          },
       ],

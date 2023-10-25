@@ -11,4 +11,5 @@ router.use("/user", userRoute);
 router.use("/admin", adminRoute);
 router.use("/genre", genreRoute);
 router.use("/video", videoRoute);
+router.use("/movie", movieRoute);
 export default router;

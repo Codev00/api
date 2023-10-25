@@ -2,6 +2,9 @@ import mongoose, { Schema } from "mongoose";
 import modelOptions from "./model.options.js";
 
 const videoSchema = new mongoose.Schema({
+   title: {
+      type: String,
+   },
    key: {
       type: String,
       required: true,

@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
          required: true,
          select: false,
       },
+      status: {
+         type: Boolean,
+         default: false,
+      },
       favorites: [
          {
             type: Schema.Types.ObjectId,

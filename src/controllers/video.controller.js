@@ -4,8 +4,8 @@ import responseHandler from "../handlers/response.handler.js";
 
 const created = async (req, res) => {
    try {
-      const { id, key } = req.body;
-      const video = new videoModel({ key: key, movie: id });
+      const { id, key, title } = req.body;
+      const video = new videoModel({ title: title, key: key, movie: id });
       const movie = await movieModel.findById(id);
       await movie.updateOne({ $push: { videos: video._id } });
       responseHandler.created(res, video);
