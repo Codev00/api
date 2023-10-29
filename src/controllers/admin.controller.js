@@ -37,7 +37,6 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
    try {
       const { username, password } = req.body;
-
       const user = await adminModel
          .findOne({ username })
          .select("username password");
@@ -63,4 +62,17 @@ const signin = async (req, res) => {
    }
 };
 
-export default { signin, signup };
+const getInfo = async (req, res) => {
+   try {
+      const user = await adminModel.findById(req.user.id);
+      if (!user) {
+         return responseHandler.unauthoriza(res);
+      }
+
+      responseHandler.ok(res, user);
+   } catch (error) {
+      responseHandler.error(res);
+   }
+};
+
+export default { signin, signup, getInfo };

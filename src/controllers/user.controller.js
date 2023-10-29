@@ -82,7 +82,8 @@ const updatePassword = async (req, res) => {
       if (!user.validpassword(password)) {
          return responseHandler.badrequest(res, "Wrong password");
       }
-      user.setPassword(newPassword);
+      const salt = bcrypt.genSaltSync(saltRounds);
+      user.password = bcrypt.hashSync(password, salt);
 
       await user.save();
       responseHandler.ok(res);

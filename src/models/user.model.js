@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema(
          required: true,
          select: false,
       },
+      email: {
+         type: String,
+      },
+      verify: {
+         type: Boolean,
+      },
       status: {
          type: Boolean,
          default: false,
@@ -24,7 +30,7 @@ const userSchema = new mongoose.Schema(
       favorites: [
          {
             type: Schema.Types.ObjectId,
-            ref: "Favorite",
+            ref: "Movie",
          },
       ],
    },

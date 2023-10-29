@@ -19,40 +19,29 @@ const created = async (req, res) => {
          actor,
          status,
          genres,
-         videos,
+         year,
+         quality,
       } = req.body;
 
       const movie = new movieModel({
-         name: name,
-         type: type,
-         backdrop_path: backdrop_path,
-         poster_path: poster_path,
-         overview: overview,
-         runtime: runtime,
-         views: views,
-         release_date: release_date,
-         direction: direction,
-         country: country,
-         actor: actor,
-         status: status,
-         genres: genres,
+         name,
+         type,
+         backdrop_path,
+         poster_path,
+         overview,
+         runtime,
+         views,
+         release_date,
+         direction,
+         country,
+         actor,
+         status,
+         genres,
+         year,
+         quality,
       });
-      if (videos) {
-         videos.map(async (video) => {
-            const video = new videoModel({
-               title: video.title,
-               key: video.key,
-               movie: movie._id,
-            });
-            movie.videos.push({ _id: video._id });
-            await video.save();
-         });
-         await movie.save();
-         responseHandler.created(res, movie);
-      } else {
-         await movie.save();
-         responseHandler.created(res, movie);
-      }
+      await movie.save();
+      responseHandler.created(res, movie);
    } catch (error) {
       responseHandler.error(res);
    }
@@ -72,8 +61,11 @@ const getAllMovies = async (req, res) => {
 
 const getMovie = async (req, res) => {
    try {
-      const { id } = req.parems.id;
-      const movie = await movieModel.findById(id);
+      const id = req.params.id;
+      console.log(id);
+      const movie = await movieModel
+         .findById(id)
+         .populate(["genres", "videos"]);
       responseHandler.ok(res, movie);
    } catch (error) {
       responseHandler.error(res);

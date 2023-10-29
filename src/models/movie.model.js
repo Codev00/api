@@ -7,6 +7,9 @@ const movieSchema = new mongoose.Schema(
          type: String,
          required: true,
       },
+      year: {
+         type: Number,
+      },
       type: {
          type: String,
       },
@@ -22,6 +25,9 @@ const movieSchema = new mongoose.Schema(
       },
       runtime: {
          type: Number,
+      },
+      quality: {
+         type: String,
       },
       views: {
          type: Number,
@@ -45,6 +51,7 @@ const movieSchema = new mongoose.Schema(
       ],
       vote_point: {
          type: Number,
+         default: 0,
       },
       vote_total: {
          type: Number,

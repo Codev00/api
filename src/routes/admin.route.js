@@ -3,6 +3,8 @@ import { body } from "express-validator";
 import adminController from "../controllers/admin.controller.js";
 import requestHandler from "../handlers/request.handler.js";
 import adminModel from "../models/admin.model.js";
+import tokenMiddleware from "../middlewares/token.middleware.js";
+import adminMiddleware from "../middlewares/admin.middleware.js";
 
 const router = express.Router();
 
@@ -44,4 +46,5 @@ router.post(
    adminController.signin
 );
 
+router.get("/info", adminMiddleware.auth, adminController.getInfo);
 export default router;

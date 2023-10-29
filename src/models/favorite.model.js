@@ -12,18 +12,16 @@ export default mongoose.model(
          },
          mediaType: {
             type: String,
-            enum: ["tv", "movie"],
-            required: true,
          },
          mediaId: {
-            type: String,
-            required: true,
+            type: Schema.Types.ObjectId,
+            ref: "Movie",
          },
          mediaName: {
             type: String,
             required: true,
          },
-         mediaPoster: {
+         poster_path: {
             type: String,
             required: true,
          },
