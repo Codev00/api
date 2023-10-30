@@ -9,5 +9,6 @@ router.get("/get/:id", movieController.getMovie);
 router.put("/edited/:id", movieController.edited);
 router.delete("/deleted/:id", movieController.deleted);
 router.get("/search", movieController.searchMovie);
+router.get("/search/genre", movieController.searchMovieGenre);
 
 export default router;

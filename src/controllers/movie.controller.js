@@ -132,6 +132,16 @@ const deleted = async (req, res) => {
    }
 };
 
+const searchMovieGenre = async (req, res) => {
+   try {
+      const { search } = req.query;
+      const data = await movieModel.find({ genres: { _id: search } });
+      responseHandler.ok(res, data);
+   } catch (error) {
+      responseHandler.error(res);
+   }
+};
+
 export default {
    created,
    getAllMovies,
@@ -139,4 +149,5 @@ export default {
    searchMovie,
    edited,
    deleted,
+   searchMovieGenre,
 };
