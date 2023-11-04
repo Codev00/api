@@ -115,4 +115,6 @@ router.delete(
    favoriteController.removeFavorite
 );
 
+router.get("/list", requestHandler.validate, userController.listUser);
+
 export default router;
