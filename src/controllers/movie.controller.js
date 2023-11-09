@@ -50,7 +50,19 @@ const created = async (req, res) => {
 const getAllMovies = async (req, res) => {
    try {
       const movies = await movieModel
-         .find({})
+         .find({ censorship: true })
+         .populate(["genres", "videos"])
+         .exec();
+      responseHandler.ok(res, movies);
+   } catch (error) {
+      responseHandler.error(res);
+   }
+};
+
+const listCensorship = async (req, res) => {
+   try {
+      const movies = await movieModel
+         .find({ censorship: false })
          .populate(["genres", "videos"])
          .exec();
       responseHandler.ok(res, movies);
@@ -100,6 +112,10 @@ const edited = async (req, res) => {
          country,
          actor,
          status,
+         genres,
+         year,
+         quality,
+         censorship,
       } = req.body;
       const movie = await movieModel.findByIdAndUpdate(id, {
          name,
@@ -114,9 +130,25 @@ const edited = async (req, res) => {
          country,
          actor,
          status,
+         genres,
+         year,
+         quality,
+         censorship,
       });
 
       responseHandler.created(res, movie);
+   } catch (error) {
+      responseHandler.error(res);
+   }
+};
+
+const changeCensorship = async (req, res) => {
+   try {
+      const id = req.params.id;
+      const { censorship } = req.body;
+      const movie = await movieModel.findById(id);
+      await movie.updateOne({ censorship });
+      responseHandler.ok(res, movie);
    } catch (error) {
       responseHandler.error(res);
    }
@@ -150,4 +182,6 @@ export default {
    edited,
    deleted,
    searchMovieGenre,
+   listCensorship,
+   changeCensorship,
 };

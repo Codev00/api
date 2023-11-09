@@ -60,6 +60,10 @@ const movieSchema = new mongoose.Schema(
       status: {
          type: String,
       },
+      censorship: {
+         type: Boolean,
+         default: false,
+      },
       genres: [
          {
             type: Schema.Types.ObjectId,
