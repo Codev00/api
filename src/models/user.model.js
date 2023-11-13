@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema(
       verify: {
          type: Boolean,
       },
+      premium: {
+         type: Boolean,
+         default: false,
+      },
+      rating: {
+         type: Number,
+         default: 0,
+      },
       status: {
          type: Boolean,
          default: false,

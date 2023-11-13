@@ -4,6 +4,7 @@ import adminRoute from "./admin.route.js";
 import genreRoute from "./genre.route.js";
 import videoRoute from "./video.route.js";
 import movieRoute from "./movie.route.js";
+import ratingRoute from "./rating.route.js";
 
 const router = express.Router();
 
@@ -12,5 +13,7 @@ router.use("/admin", adminRoute);
 router.use("/genre", genreRoute);
 router.use("/video", videoRoute);
 router.use("/movie", movieRoute);
+router.use("/rated", ratingRoute);
+router.use("/review", ratingRoute);
 
 export default router;

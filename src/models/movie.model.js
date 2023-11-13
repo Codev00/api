@@ -76,6 +76,18 @@ const movieSchema = new mongoose.Schema(
             ref: "Video",
          },
       ],
+      rating: [
+         {
+            type: Schema.Types.ObjectId,
+            ref: "Rate",
+         },
+      ],
+      reviews: [
+         {
+            type: Schema.Types.ObjectId,
+            ref: "Review",
+         },
+      ],
    },
    modelOptions
 );
