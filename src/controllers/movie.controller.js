@@ -51,6 +51,7 @@ const getAllMovies = async (req, res) => {
    try {
       const movies = await movieModel
          .find({ censorship: true })
+         .populate(["rating", "reviews"])
          .populate(["genres", "videos"])
          .exec();
       responseHandler.ok(res, movies);
@@ -63,6 +64,7 @@ const listCensorship = async (req, res) => {
    try {
       const movies = await movieModel
          .find({ censorship: false })
+         .populate(["rating", "reviews"])
          .populate(["genres", "videos"])
          .exec();
       responseHandler.ok(res, movies);
@@ -77,9 +79,12 @@ const getMovie = async (req, res) => {
       console.log(id);
       const movie = await movieModel
          .findById(id)
-         .populate(["genres", "videos"]);
+         .populate(["rating", "reviews"])
+         .populate(["genres", "videos"])
+         .exec();
       responseHandler.ok(res, movie);
    } catch (error) {
+      console.log(error);
       responseHandler.error(res);
    }
 };

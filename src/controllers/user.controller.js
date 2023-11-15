@@ -94,20 +94,24 @@ const updatePassword = async (req, res) => {
 
 const getInfo = async (req, res) => {
    try {
-      const user = await userModel.findById(req.user.id);
+      const user = await userModel
+         .findById(req.user.id)
+         .populate(["favorites"])
+         .exec();
       if (!user) {
          return responseHandler.unauthoriza(res);
       }
 
       responseHandler.ok(res, user);
    } catch (error) {
+      console.log(error);
       responseHandler.error(res);
    }
 };
 
 const listUser = async (req, res) => {
    try {
-      const users = await userModel.find({});
+      const users = await userModel.find({}).populate(["favorites"]).exec();
       responseHandler.ok(res, users);
    } catch (error) {
       responseHandler.error(res);
