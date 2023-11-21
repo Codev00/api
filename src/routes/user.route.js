@@ -84,33 +84,12 @@ router.put(
 );
 
 router.get("/info", tokenMiddleware.auth, userController.getInfo);
+router.get("/info/:id", tokenMiddleware.auth, userController.getUser);
 
-router.get(
-   "/favorites",
-   tokenMiddleware.auth,
-   favoriteController.getFavoriteOfUser
-);
-router.post(
-   "/favorites",
-   tokenMiddleware.auth,
-   body("mediaType")
-      .exists()
-      .withMessage("mediatype is required")
-      .custom((type) => ["tv", "movie"].includes(type))
-      .withMessage("mediatype invalid"),
-   body("mediaId")
-      .exists()
-      .withMessage("mediaId is required")
-      .isLength({ min: 1 })
-      .withMessage("mediaId can not be empty"),
-   body("mediaName").exists().withMessage("mediaId is required"),
-   body("mediaPoster").exists().withMessage("mediaPoster is required"),
-   requestHandler.validate,
-   favoriteController.addFavorite
-);
+router.post("/favorites", tokenMiddleware.auth, favoriteController.addFavorite);
 
 router.delete(
-   "/favorites/:favoriteId",
+   "/unfavorites/:id",
    tokenMiddleware.auth,
    favoriteController.removeFavorite
 );

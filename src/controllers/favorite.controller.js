@@ -1,25 +1,22 @@
 import responseHandler from "../handlers/response.handler.js";
 import favoriteModel from "../models/favorite.model.js";
+import userModel from "../models/user.model.js";
 
 const addFavorite = async (req, res) => {
    try {
-      const isFavorite = await favoriteModel.findOne({
-         user: req.user.id,
-         mediaId: req.body.mediaId,
-      });
+      const { mediaId } = req.body;
+      const userId = req.user._id;
+      console.log(req.user);
 
-      if (isFavorite) {
-         return responseHandler.ok(res, isFavorite);
+      const user = await userModel.findById(userId);
+
+      if (!user) {
+         return responseHandler.notfound(res);
       }
 
-      const favorite = new favoriteModel({
-         ...req.body,
-         user: req.user.id,
-      });
+      await user.updateOne({ $push: { favorites: mediaId } });
 
-      await favorite.save();
-
-      responseHandler.created(res, favorite);
+      responseHandler.created(res);
    } catch (error) {
       responseHandler.error(res);
    }
@@ -27,29 +24,21 @@ const addFavorite = async (req, res) => {
 
 const removeFavorite = async (req, res) => {
    try {
-      const { favoriteId } = req.params;
-      const favorite = await favoriteModel.findOne({
-         _id: favoriteId,
-         user: req.user.id,
-      });
+      console.log(req.user);
+      const id = req.params.id;
+
+      const userId = req.user._id;
+
+      const user = await userModel.findById(userId);
+
+      const favorite = user.favorites.includes(id);
       if (!favorite) {
          return responseHandler.notfound(res);
       }
-      await favorite.remove();
+      await user.updateOne({ $pull: { favorites: id } });
       responseHandler.ok(res);
    } catch (error) {
-      responseHandler.error(res);
-   }
-};
-
-const getFavoriteOfUser = async (req, res) => {
-   try {
-      const favorite = await favoriteModel
-         .find({ user: req.user.id })
-         .sort("-createdAt");
-
-      responseHandler.ok(res, favorite);
-   } catch (error) {
+      console.log(error);
       responseHandler.error(res);
    }
 };
@@ -57,5 +46,4 @@ const getFavoriteOfUser = async (req, res) => {
 export default {
    addFavorite,
    removeFavorite,
-   getFavoriteOfUser,
 };

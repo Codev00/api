@@ -118,10 +118,20 @@ const listUser = async (req, res) => {
    }
 };
 
+const getUser = async (req, res) => {
+   try {
+      const user = await userModel.findById(req.params.userId).exec();
+      responseHandler.ok(res, user);
+   } catch (error) {
+      responseHandler.error(res);
+   }
+};
+
 export default {
    signup,
    signin,
    updatePassword,
    getInfo,
    listUser,
+   getUser,
 };

@@ -79,8 +79,13 @@ const getMovie = async (req, res) => {
       console.log(id);
       const movie = await movieModel
          .findById(id)
-         .populate(["rating", "reviews"])
-         .populate(["genres", "videos"])
+         .populate(["rating", "genres", "videos"])
+         .populate({
+            path: "reviews",
+            populate: {
+               path: "userId",
+            },
+         })
          .exec();
       responseHandler.ok(res, movie);
    } catch (error) {

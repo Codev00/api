@@ -18,7 +18,7 @@ const created = async (req, res) => {
    }
 };
 
-const update = async (req, res) => {
+const updated = async (req, res) => {
    try {
       const { review } = req.body;
       const id = req.params.id;
@@ -28,8 +28,23 @@ const update = async (req, res) => {
 
       responseHandler.ok(res, reviewObj);
    } catch (error) {
+      console.log(error);
       responseHandler.error(res);
    }
 };
 
-export default { created, update };
+const deleted = async (req, res) => {
+   try {
+      const id = req.params.id;
+      const { mediaId } = req.body;
+      const movie = await movieModel.findById(mediaId);
+      await movie.updateOne({ $pull: { reviews: id } });
+      await reviewModel.findByIdAndDelete(id);
+      responseHandler.ok(res);
+   } catch (error) {
+      console.log(error);
+      responseHandler.error(res);
+   }
+};
+
+export default { created, updated, deleted };
