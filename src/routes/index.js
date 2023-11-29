@@ -6,6 +6,7 @@ import videoRoute from "./video.route.js";
 import movieRoute from "./movie.route.js";
 import ratingRoute from "./rating.route.js";
 import reviewRoute from "./review.route.js";
+import paymentRoute from "./payment.route.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use("/video", videoRoute);
 router.use("/movie", movieRoute);
 router.use("/rated", ratingRoute);
 router.use("/review", reviewRoute);
+router.use("/payment", paymentRoute);
 
 export default router;

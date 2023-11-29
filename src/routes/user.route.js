@@ -95,5 +95,5 @@ router.delete(
 );
 
 router.get("/list", requestHandler.validate, userController.listUser);
-
+router.put("/edit/:id", tokenMiddleware.auth, userController.editUser);
 export default router;

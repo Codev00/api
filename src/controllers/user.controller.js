@@ -83,7 +83,7 @@ const updatePassword = async (req, res) => {
          return responseHandler.badrequest(res, "Wrong password");
       }
       const salt = bcrypt.genSaltSync(saltRounds);
-      user.password = bcrypt.hashSync(password, salt);
+      user.password = bcrypt.hashSync(newPassword, salt);
 
       await user.save();
       responseHandler.ok(res);
@@ -127,6 +127,29 @@ const getUser = async (req, res) => {
    }
 };
 
+const editUser = async (req, res) => {
+   try {
+      const id = req.params.id;
+      const { name, newPassword } = req.body;
+      const user = await userModel.findById(id);
+      if (!user) {
+         return responseHandler.unauthoriza(res);
+      }
+      if (newPassword) {
+         const salt = bcrypt.genSaltSync(saltRounds);
+         user.password = bcrypt.hashSync(newPassword, salt);
+      }
+      if (name) {
+         user.displayName = name;
+      }
+      await user.save();
+      responseHandler.ok(res, user);
+   } catch (error) {
+      console.log(error);
+      responseHandler.error(res);
+   }
+};
+
 export default {
    signup,
    signin,
@@ -134,4 +157,5 @@ export default {
    getInfo,
    listUser,
    getUser,
+   editUser,
 };

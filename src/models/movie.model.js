@@ -28,6 +28,11 @@ const movieSchema = new mongoose.Schema(
       },
       quality: {
          type: String,
+         default: "HD",
+      },
+      premium: {
+         type: Boolean,
+         default: false,
       },
       views: {
          type: Number,
