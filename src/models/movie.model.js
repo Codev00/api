@@ -1,4 +1,4 @@
-import mongoose, { Schema, now } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import modelOptions from "./model.options.js";
 
 const movieSchema = new mongoose.Schema(

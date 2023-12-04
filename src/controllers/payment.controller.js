@@ -9,9 +9,8 @@ const createPayment = async (req, res) => {
          vnp_Amount: vnp_Amount,
          vnp_TxnRef: vnp_TxnRef,
          vnp_OrderInfo: vnp_OrderInfo,
-         vnp_IpAddr: "127.0.0.1",
+         vnp_IpAddr: req.ip,
       });
-      console.log(paymentUrl);
       responseHandler.ok(res, { paymentUrl });
    } catch (error) {
       console.log(error.message);

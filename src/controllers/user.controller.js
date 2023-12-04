@@ -130,21 +130,28 @@ const getUser = async (req, res) => {
 const editUser = async (req, res) => {
    try {
       const id = req.params.id;
-      const { name, newPassword } = req.body;
-      const user = await userModel.findById(id);
+      const { name, password, newPassword } = req.body;
+      const user = await userModel.findById(id).select("password displayName");
       if (!user) {
          return responseHandler.unauthoriza(res);
       }
-      if (newPassword) {
-         const salt = bcrypt.genSaltSync(saltRounds);
-         user.password = bcrypt.hashSync(newPassword, salt);
+      console.log(user);
+      if (password) {
+         if (!bcrypt.compareSync(password, user.password)) {
+            return responseHandler.badrequest(res, "Wrong password");
+         } else {
+            const salt = bcrypt.genSaltSync(saltRounds);
+            user.password = bcrypt.hashSync(newPassword, salt);
+         }
       }
       if (name) {
          user.displayName = name;
       }
       await user.save();
+      user.password = undefined;
       responseHandler.ok(res, user);
    } catch (error) {
+      console.log("edit");
       console.log(error);
       responseHandler.error(res);
    }
