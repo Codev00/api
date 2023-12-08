@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
             ref: "Movie",
          },
       ],
+      payment: {
+         type: Schema.Types.ObjectId,
+         ref: "Payment",
+      }
    },
    modelOptions
 );

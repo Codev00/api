@@ -96,7 +96,7 @@ const getInfo = async (req, res) => {
    try {
       const user = await userModel
          .findById(req.user.id)
-         .populate(["favorites"])
+         .populate(["favorites", "payment"])
          .exec();
       if (!user) {
          return responseHandler.unauthoriza(res);

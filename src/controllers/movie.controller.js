@@ -7,7 +7,6 @@ const created = async (req, res) => {
       console.log("created");
       const {
          name,
-         type,
          backdrop_path,
          poster_path,
          overview,
@@ -17,10 +16,10 @@ const created = async (req, res) => {
          direction,
          country,
          actor,
-         status,
          genres,
          year,
          quality,
+         premium,
       } = req.body;
 
       const movie = new movieModel({
@@ -35,10 +34,10 @@ const created = async (req, res) => {
          direction,
          country,
          actor,
-         status,
          genres,
          year,
          quality,
+         premium,
       });
       await movie.save();
       responseHandler.created(res, movie);
@@ -121,11 +120,10 @@ const edited = async (req, res) => {
          direction,
          country,
          actor,
-         status,
          genres,
          year,
          quality,
-         censorship,
+         premium,
       } = req.body;
       const movie = await movieModel.findByIdAndUpdate(id, {
          name,
@@ -139,11 +137,10 @@ const edited = async (req, res) => {
          direction,
          country,
          actor,
-         status,
          genres,
          year,
          quality,
-         censorship,
+         premium,
       });
 
       responseHandler.created(res, movie);
