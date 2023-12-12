@@ -12,10 +12,6 @@ const adminSchema = new mongoose.Schema(
          type: String,
          required: true,
       },
-      manager: {
-         type: Schema.Types.ObjectId,
-         ref: "Management",
-      },
    },
    modelOptions
 );

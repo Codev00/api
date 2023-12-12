@@ -19,9 +19,12 @@ const userSchema = new mongoose.Schema(
       },
       email: {
          type: String,
+         default: "",
+         unique: true,
       },
       verify: {
-         type: Boolean,
+         type: String,
+         default: "",
       },
       premium: {
          type: Boolean,
@@ -44,7 +47,7 @@ const userSchema = new mongoose.Schema(
       payment: {
          type: Schema.Types.ObjectId,
          ref: "Payment",
-      }
+      },
    },
    modelOptions
 );

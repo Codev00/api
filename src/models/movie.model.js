@@ -10,9 +10,6 @@ const movieSchema = new mongoose.Schema(
       year: {
          type: Number,
       },
-      type: {
-         type: String,
-      },
       backdrop_path: {
          type: String,
       },
@@ -54,14 +51,6 @@ const movieSchema = new mongoose.Schema(
             type: String,
          },
       ],
-      vote_point: {
-         type: Number,
-         default: 0,
-      },
-      vote_total: {
-         type: Number,
-         default: 0,
-      },
       status: {
          type: String,
          default: "released",
