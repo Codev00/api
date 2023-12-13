@@ -24,7 +24,6 @@ const created = async (req, res) => {
 
       const movie = new movieModel({
          name,
-         type,
          backdrop_path,
          poster_path,
          overview,
@@ -42,6 +41,7 @@ const created = async (req, res) => {
       await movie.save();
       responseHandler.created(res, movie);
    } catch (error) {
+      console.log(error);
       responseHandler.error(res);
    }
 };
