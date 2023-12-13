@@ -83,6 +83,28 @@ router.put(
    userController.updatePassword
 );
 
+router.put(
+   "/reset-password",
+   body("password")
+      .exists()
+      .withMessage("password is required")
+      .isLength({ min: 6 })
+      .withMessage("password minimum 6 characters"),
+   body("confirmPassword")
+      .exists()
+      .withMessage("confirmPassword is required")
+      .isLength({ min: 6 })
+      .withMessage("confirmPassword minimum 6 characters")
+      .custom((value, { req }) => {
+         if (value !== req.body.newPassword)
+            throw new Error("confirmPassword not match");
+         return true;
+      }),
+   userController.resetPassword
+);
+
+router.post("/forgot-password", userController.forgotPassword);
+
 router.get("/info", tokenMiddleware.auth, userController.getInfo);
 router.get("/info/:id", tokenMiddleware.auth, userController.getUser);
 
@@ -95,5 +117,20 @@ router.delete(
 );
 
 router.get("/list", requestHandler.validate, userController.listUser);
-router.put("/edit/:id", tokenMiddleware.auth, userController.editUser);
+router.put(
+   "/edit/:id",
+   tokenMiddleware.auth,
+   body("email")
+      .exists()
+      .custom(async (value) => {
+         console.log(value);
+         const user = await userModel.findOne({ email: value });
+         console.log(user);
+         if (user) {
+            return Promise.reject("User already exists");
+         }
+      }),
+   requestHandler.validate,
+   userController.editUser
+);
 export default router;
