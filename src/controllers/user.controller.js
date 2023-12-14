@@ -123,23 +123,18 @@ const forgotPassword = async (req, res) => {
          text: "That was easy!",
          html: `<div>
             <p>
-               Đây là một ví dụ về nội dung email gửi khi người dùng yêu cầu
-               reset mật khẩu tài khoản Gmail. Chúng tôi nhận được yêu cầu reset
+               Chúng tôi nhận được yêu cầu reset
                mật khẩu tài khoản Gmail của bạn. Nếu bạn không yêu cầu reset mật
                khẩu, vui lòng bỏ qua email này và không thực hiện bất kỳ hành
                động nào. Tài khoản của bạn vẫn an toàn. Nếu bạn đang cố gắng
                truy cập tài khoản của mình, hãy nhấp vào liên kết bên dưới để
                đặt lại mật khẩu:
-               <h1>
+               <h3>
                   <a href="http://localhost:3000/forgot-password/reset-password?email=${email}&token=${token}">RESET PASSWORD</a>
-               </h1>
+               </h3>
                Liên kết trên chỉ có hiệu lực trong vòng 5 phút tính từ lúc gửi
                email này. Sau thời gian đó, bạn cần yêu cầu reset mật khẩu mới.
-               Cảm ơn bạn đã sử dụng dịch vụ Gmail. Chúc bạn một ngày tốt lành!
-               Đội ngũ hỗ trợ Gmail Nội dung email này giải thích nguyên nhân
-               gửi, hướng dẫn người dùng cách đặt lại mật khẩu và cảnh báo thời
-               hạn sử dụng liên kết reset để đảm bảo an toàn cho quá trình đổi
-               mật khẩu.
+               Cảm ơn bạn đã sử dụng dịch vụ xem phim Matrix. Chúc bạn một ngày tốt lành!
             </p>
          </div>`,
       };
