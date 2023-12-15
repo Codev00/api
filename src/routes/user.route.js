@@ -127,7 +127,7 @@ router.put(
          const user = await userModel.findOne({ email: value });
          console.log(user);
          if (user) {
-            return Promise.reject("User already exists");
+            return Promise.reject("Email already exists");
          }
       }),
    requestHandler.validate,
